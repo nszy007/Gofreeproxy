@@ -13,6 +13,7 @@ var (
 	Renew     bool
 	Port      string
 	Host      string
+	Cn        bool
 	File      bool
 	Coroutine int
 	Time      int
@@ -27,13 +28,14 @@ func main() {
 	flag.StringVar(&Host, "h", "127.0.0.1", "\n使用自定义本地服务监听地址，默认为127.0.0.1")
 	flag.BoolVar(&Renew, "renew", false, "\n当启用-fofa或-quake或-hunter参数时是否对现有proxy.txt进行重写，默认为否")
 	flag.BoolVar(&File, "f", false, "\n使用-f参数可读取当前目录下的proxy.txt，获取其中的代理使用")
+	flag.BoolVar(&Cn, "CN", false, "\n只请求国内的代理地址")
 	flag.StringVar(&Port, "p", "1080", "\n使用-p参数自定义本地服务端口，默认为1080")
 	flag.IntVar(&Coroutine, "c", 200, "\n使用-c参数可设置验证代理的协程数量，默认为200")
 	flag.IntVar(&Time, "t", 10, "\n使用-t参数可设置验证代理的超时时间，默认为10秒")
 	flag.Parse()
 
 	if Fofa || Quake || Hunter {
-		console.Startgetsocks(Coroutine, Time, Fofa, Quake, Hunter, Renew)
+		console.Startgetsocks(Coroutine, Time, Fofa, Quake, Hunter, Renew, Cn)
 		console.Strartsocks(Port, Host)
 	} else if File == true {
 		console.Readfileproxy(Coroutine, Time)

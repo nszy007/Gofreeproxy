@@ -134,22 +134,31 @@ func IsProxy(proxyIp string, Time int) (isProxy bool) {
 	}
 }
 
-func Startgetsocks(Coroutine int, Time int, useFofa bool, useQuake bool, useHunter bool, renew bool) {
+func Startgetsocks(Coroutine int, Time int, useFofa bool, useQuake bool, useHunter bool, renew bool, cn bool) {
 	GETRES := []string{}
 	if useFofa {
 		fofakeys := "protocol=\"socks5\" && \"Method:No Authentication(0x00)\""
+		if cn {
+			fofakeys = "protocol==\"socks5\" && \"Version:5 Method:No Authentication(0x00)\" && country=\"CN\""
+		}
 		FOFA := fofa.Fafaall(fofakeys)
 		GETRES = append(GETRES, FOFA...)
 		color.RGBStyleFromString("237,64,35").Printf("[+]从fofa获取代理:%d条", len(FOFA))
 	}
 	if useQuake {
 		quakekeys := "service:\"socks5\" and response:\"Accepted Auth Method: 0x0\""
+		if cn {
+			quakekeys = "service:\"socks5\" and response:\"Accepted Auth Method: 0x0\" and country:\"CN\""
+		}
 		QUAKE := quake.Quakeall(quakekeys)
 		GETRES = append(GETRES, QUAKE...)
 		color.RGBStyleFromString("237,64,35").Printf("[+]从hunter获取代理:%d条", len(QUAKE))
 	}
 	if useHunter {
 		hunterkeys := "protocol==\"socks5\"&&protocol.banner=\"Method: 0x00 (No authentication)\""
+		if cn {
+			hunterkeys = "protocol==\"socks5\"&&protocol.banner=\"Method: 0x00 (No authentication)\"&&ip.country==\"中国\""
+		}
 		HUNTER := hunter.Hunterall(hunterkeys)
 		GETRES = append(GETRES, HUNTER...)
 		color.RGBStyleFromString("237,64,35").Printf("[+]从hunter获取代理:%d条", len(HUNTER))

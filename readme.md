@@ -6,9 +6,14 @@
 配置好config.ini中关于fofa的参数\
 usage:
 >   -f	使用-f参数可读取当前目录下的proxy.txt，获取其中的代理使用\
--fofa  使用-fofa参数可从fofa收集资产获取公开代理使用\
+>   -fofa  使用-fofa参数可从fofa收集资产获取公开代理使用\
+>   -quake 使用-quake参数可从hunter收集资产获取公开代理使用\
+>   -hunter 使用-hunter参数可从hunter收集资产获取公开代理使用\
+>   -renew  当启用-fofa或-quake或-hunter参数时是否对现有proxy.txt进行重写，默认为否\
+>   -CN     只请求国内的代理地址\
 > -c    使用-c参数可设置验证代理的协程数量，默认为200\
 > -t    使用-t参数可设置验证代理的超时时间，默认为10秒\
+> -p    使用-p参数自定义本地服务端口，默认为1080\
 > 成功后socks代理监听1080端口即可
 
 效果:
